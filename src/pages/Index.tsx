@@ -31,12 +31,12 @@ const Index = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300 pb-20">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300 pt-30">
         <TopHeader />
+        <BottomNavigation currentView={currentView} onViewChange={setCurrentView} />
         <main className="container mx-auto px-4 py-6">
           {renderCurrentView()}
         </main>
-        <BottomNavigation currentView={currentView} onViewChange={setCurrentView} />
         <FloatingAIButton onClick={() => setIsChatOpen(true)} />
         <AIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </div>
