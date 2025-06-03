@@ -16,7 +16,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ currentView,
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm border-t border-border z-40">
+    <nav className="sticky top-14 left-0 right-0 bg-card/95 backdrop-blur-sm border-b border-border z-40">
       <div className="flex items-center justify-around h-16 px-4">
         {navItems.map((item) => {
           const Icon = item.icon;
