@@ -22,7 +22,11 @@ const mockData = {
   ]
 };
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onViewChange: (view: string) => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
   return (
     <div className="space-y-8">
       <div>
@@ -31,7 +35,7 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onViewChange('prompts')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Prompts</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
@@ -42,7 +46,7 @@ export const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onViewChange('notes')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Notes</CardTitle>
             <StickyNote className="h-4 w-4 text-muted-foreground" />
@@ -53,7 +57,7 @@ export const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onViewChange('tasks')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pending Tasks</CardTitle>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
@@ -72,14 +76,18 @@ export const Dashboard: React.FC = () => {
               <FileText className="h-5 w-5" />
               <span>Recent Prompts</span>
             </CardTitle>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => onViewChange('prompts')}>
               <Plus className="h-4 w-4 mr-2" />
               New Prompt
             </Button>
           </CardHeader>
           <CardContent className="space-y-4">
             {mockData.recentPrompts.map((prompt) => (
-              <div key={prompt.id} className="p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+              <div 
+                key={prompt.id} 
+                className="p-4 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => onViewChange('prompts')}
+              >
                 <h4 className="font-semibold mb-1">{prompt.title}</h4>
                 <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{prompt.description}</p>
                 <div className="flex items-center space-x-2 text-xs text-muted-foreground">
@@ -97,14 +105,18 @@ export const Dashboard: React.FC = () => {
               <StickyNote className="h-5 w-5" />
               <span>Recent Notes</span>
             </CardTitle>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => onViewChange('notes')}>
               <Plus className="h-4 w-4 mr-2" />
               New Note
             </Button>
           </CardHeader>
           <CardContent className="space-y-4">
             {mockData.recentNotes.map((note) => (
-              <div key={note.id} className="p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+              <div 
+                key={note.id} 
+                className="p-4 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => onViewChange('notes')}
+              >
                 <h4 className="font-semibold mb-1">{note.title}</h4>
                 <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{note.content}</p>
                 <div className="flex items-center space-x-2 text-xs text-muted-foreground">
@@ -123,7 +135,7 @@ export const Dashboard: React.FC = () => {
             <CheckSquare className="h-5 w-5" />
             <span>Upcoming Tasks</span>
           </CardTitle>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => onViewChange('tasks')}>
             <Plus className="h-4 w-4 mr-2" />
             New Task
           </Button>
@@ -131,7 +143,11 @@ export const Dashboard: React.FC = () => {
         <CardContent>
           <div className="space-y-3">
             {mockData.pendingTasks.map((task) => (
-              <div key={task.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+              <div 
+                key={task.id} 
+                className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => onViewChange('tasks')}
+              >
                 <div className="flex items-center space-x-3">
                   <input type="checkbox" className="rounded" />
                   <span className="font-medium">{task.title}</span>

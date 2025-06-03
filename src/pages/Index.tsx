@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { Navigation } from '@/components/Navigation';
 import { Dashboard } from '@/components/Dashboard';
 import { PromptsView } from '@/components/PromptsView';
 import { NotesView } from '@/components/NotesView';
@@ -8,6 +7,8 @@ import { TasksView } from '@/components/TasksView';
 import { AIChat } from '@/components/AIChat';
 import { FloatingAIButton } from '@/components/FloatingAIButton';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { BottomNavigation } from '@/components/BottomNavigation';
+import { TopHeader } from '@/components/TopHeader';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState('dashboard');
@@ -16,7 +17,7 @@ const Index = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onViewChange={setCurrentView} />;
       case 'prompts':
         return <PromptsView />;
       case 'notes':
@@ -24,17 +25,18 @@ const Index = () => {
       case 'tasks':
         return <TasksView />;
       default:
-        return <Dashboard />;
+        return <Dashboard onViewChange={setCurrentView} />;
     }
   };
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-        <Navigation currentView={currentView} onViewChange={setCurrentView} />
-        <main className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300 pb-20">
+        <TopHeader />
+        <main className="container mx-auto px-4 py-6">
           {renderCurrentView()}
         </main>
+        <BottomNavigation currentView={currentView} onViewChange={setCurrentView} />
         <FloatingAIButton onClick={() => setIsChatOpen(true)} />
         <AIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </div>
