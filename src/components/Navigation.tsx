@@ -1,22 +1,37 @@
 
 import React from 'react';
-import { User, Bot, FileText, StickyNote, CheckSquare, Sun, Moon } from 'lucide-react';
+import {
+  User,
+  Bot,
+  FileText,
+  StickyNote,
+  CheckSquare,
+  LayoutDashboard,
+  Sun,
+  Moon
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/ThemeProvider';
 
 interface NavigationProps {
   currentView: string;
   onViewChange: (view: string) => void;
+  onChatOpen: () => void;
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ currentView, onViewChange }) => {
+export const Navigation: React.FC<NavigationProps> = ({
+  currentView,
+  onViewChange,
+  onChatOpen
+}) => {
   const { theme, toggleTheme } = useTheme();
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Bot },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'prompts', label: 'Prompts', icon: FileText },
     { id: 'notes', label: 'Notes', icon: StickyNote },
     { id: 'tasks', label: 'Tasks', icon: CheckSquare },
+    { id: 'chat', label: 'AI Chat', icon: Bot }
   ];
 
   return (
@@ -35,7 +50,9 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onViewChang
                   <Button
                     key={item.id}
                     variant={currentView === item.id ? 'default' : 'ghost'}
-                    onClick={() => onViewChange(item.id)}
+                    onClick={() =>
+                      item.id === 'chat' ? onChatOpen() : onViewChange(item.id)
+                    }
                     className="flex items-center space-x-2"
                   >
                     <Icon className="h-4 w-4" />
