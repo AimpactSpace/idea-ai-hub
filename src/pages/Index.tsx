@@ -5,7 +5,6 @@ import { PromptsView } from '@/components/PromptsView';
 import { NotesView } from '@/components/NotesView';
 import { TasksView } from '@/components/TasksView';
 import { AIChat } from '@/components/AIChat';
-import { FloatingAIButton } from '@/components/FloatingAIButton';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { BottomNavigation } from '@/components/BottomNavigation';
 import { TopHeader } from '@/components/TopHeader';
@@ -33,11 +32,15 @@ const Index = () => {
     <ThemeProvider>
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300 pt-30">
         <TopHeader />
-        <BottomNavigation currentView={currentView} onViewChange={setCurrentView} />
+        <BottomNavigation
+          currentView={currentView}
+          onViewChange={setCurrentView}
+          onChatOpen={() => setIsChatOpen(true)}
+          isChatOpen={isChatOpen}
+        />
         <main className="container mx-auto px-4 py-6">
           {renderCurrentView()}
         </main>
-        <FloatingAIButton onClick={() => setIsChatOpen(true)} />
         <AIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </div>
     </ThemeProvider>
