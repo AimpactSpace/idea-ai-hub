@@ -1,18 +1,30 @@
 
 import React from 'react';
-import { Bot, FileText, StickyNote, CheckSquare } from 'lucide-react';
+import {
+  Bot,
+  FileText,
+  StickyNote,
+  CheckSquare,
+  LayoutDashboard
+} from 'lucide-react';
 
 interface BottomNavigationProps {
   currentView: string;
   onViewChange: (view: string) => void;
+  onChatOpen: () => void;
 }
 
-export const BottomNavigation: React.FC<BottomNavigationProps> = ({ currentView, onViewChange }) => {
+export const BottomNavigation: React.FC<BottomNavigationProps> = ({
+  currentView,
+  onViewChange,
+  onChatOpen
+}) => {
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Bot },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'prompts', label: 'Prompts', icon: FileText },
     { id: 'notes', label: 'Notes', icon: StickyNote },
     { id: 'tasks', label: 'Tasks', icon: CheckSquare },
+    { id: 'chat', label: 'AI Chat', icon: Bot }
   ];
 
   return (
@@ -24,7 +36,9 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ currentView,
           return (
             <button
               key={item.id}
-              onClick={() => onViewChange(item.id)}
+              onClick={() =>
+                item.id === 'chat' ? onChatOpen() : onViewChange(item.id)
+              }
               className={`flex flex-col items-center justify-center space-y-1 min-w-0 flex-1 py-2 transition-colors duration-200 ${
                 isActive 
                   ? 'text-primary' 
